@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en" data-ui-motion="full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#fff8fc" />
+    <title>Reconnect · VELORI</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --text-primary: #241d28;
+        --text-secondary: #706575;
+        --text-muted: #786975;
+        --surface-primary: #fff;
+        --border-primary: #eee3eb;
+        --soft-pink: #fff0f6;
+        --velo-primary: #cf508a;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        background: #fff8fc;
+        color: var(--text-primary);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        background:
+          radial-gradient(ellipse at 90% 15%, #fff3cc88, transparent 45%),
+          radial-gradient(ellipse at 0 75%, #fbe5f188, transparent 50%);
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 24px clamp(20px, 5vw, 70px);
+      }
+      .brand {
+        font-weight: 800;
+        letter-spacing: -0.06em;
+        font-size: 23px;
+      }
+      .brand b {
+        color: var(--velo-primary);
+      }
+      label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      select {
+        font: inherit;
+        border: 1px solid var(--border-primary);
+        border-radius: 9px;
+        padding: 8px;
+        background: #fff;
+        color: var(--text-primary);
+      }
+      main {
+        flex: 1;
+        display: grid;
+        place-items: center;
+        padding: 20px 16px 40px;
+      }
+      .card {
+        width: min(100%, 650px);
+        padding: 30px clamp(18px, 6vw, 54px) 38px;
+        border: 1px solid var(--border-primary);
+        border-radius: 28px;
+        text-align: center;
+        background: #ffffffed;
+        box-shadow: 0 30px 80px -60px #8a577a77;
+      }
+      .eyebrow {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--velo-primary);
+      }
+      h1 {
+        font-size: clamp(30px, 6vw, 44px);
+        line-height: 1.12;
+        letter-spacing: -0.045em;
+        margin: 12px 0 16px;
+      }
+      p {
+        max-width: 460px;
+        margin: 0 auto 20px;
+        line-height: 1.7;
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      button,
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 46px;
+        padding: 12px 20px;
+        border-radius: 12px;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 650;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      button {
+        border: 1px solid var(--velo-primary);
+        background: var(--velo-primary);
+        color: white;
+      }
+      a {
+        border: 1px solid var(--border-primary);
+        background: #fff;
+        color: var(--text-primary);
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+      :focus-visible {
+        outline: 3px solid #3478f6;
+        outline-offset: 3px;
+      }
+      #feedback {
+        min-height: 42px;
+        margin: 20px auto 0;
+        font-size: 12px;
+      }
+      footer {
+        padding: 0 20px 24px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 11px;
+      }
+      .status-scene-symbol svg {
+        width: 38px;
+        height: 38px;
+      }
+      .status-scene-token {
+        font-size: 26px;
+      }
+      .status-scope {
+        font-size: 11px;
+        display: inline-flex;
+        gap: 7px;
+        align-items: center;
+        margin-bottom: 8px;
+        color: var(--text-muted);
+      }
+      .status-scope:before {
+        content: "";
+        height: 6px;
+        width: 6px;
+        border-radius: 50%;
+        background: #d69b31;
+      }
+      /* Shared reliability surfaces. Geometry conveys the state, never a percentage. */
+      .status-scene {
+        position: relative;
+        isolation: isolate;
+        width: min(100%, 360px);
+        height: 240px;
+        margin: 12px auto 20px;
+        perspective: 800px;
+        color: var(--text-primary, #241d28);
+      }
+      .status-scene-orbit {
+        position: absolute;
+        inset: 15px 25px 10px;
+        border: 1px dashed color-mix(in srgb, var(--velo-primary, #ea75ab) 32%, transparent);
+        border-radius: 50%;
+        transform: rotate(-18deg);
+      }
+      .status-scene-orbit-inner {
+        inset: 35px 2px;
+        transform: rotate(22deg);
+        border-style: solid;
+        opacity: 0.45;
+      }
+      .status-scene-window {
+        position: absolute;
+        inset: 22px 65px 25px;
+        overflow: hidden;
+        border: 1px solid
+          color-mix(in srgb, var(--velo-primary, #ea75ab) 25%, var(--border-primary, #eee));
+        border-radius: 24px;
+        background: var(--surface-primary, #fff);
+        box-shadow:
+          12px 18px 0 color-mix(in srgb, var(--velo-primary, #ea75ab) 12%, transparent),
+          0 28px 45px -30px #8b547b88;
+        transform: rotate(-8deg) rotateY(-12deg);
+      }
+      .status-window-chrome {
+        height: 37px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 15px;
+        border-bottom: 1px solid var(--border-primary, #eee);
+        background: var(--soft-pink, #fff3f8);
+      }
+      .status-window-chrome i {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #d590ae;
+      }
+      .status-window-chrome span {
+        margin-left: auto;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        color: var(--text-muted, #786975);
+      }
+      .status-scene-symbol {
+        display: grid;
+        place-items: center;
+        width: 70px;
+        height: 70px;
+        margin: 16px auto 12px;
+        border-radius: 22px;
+        background: var(--soft-pink, #fff0f6);
+        color: var(--velo-primary, #d65890);
+      }
+      .status-scene-symbol svg {
+        width: 39px;
+        height: 39px;
+      }
+      .status-window-lines {
+        display: grid;
+        gap: 7px;
+        justify-items: center;
+      }
+      .status-window-lines i {
+        height: 5px;
+        width: 85px;
+        border-radius: 8px;
+        background: var(--border-primary, #eee);
+      }
+      .status-window-lines i:last-child {
+        width: 50px;
+      }
+      .status-scene-shadow {
+        position: absolute;
+        inset: auto 70px 6px;
+        height: 13px;
+        border-radius: 50%;
+        background: #a96d8a18;
+        filter: blur(5px);
+      }
+      .status-scene-token {
+        position: absolute;
+        right: 29px;
+        top: 120px;
+        display: grid;
+        place-items: center;
+        width: 58px;
+        height: 58px;
+        border: 1px solid #e9d391;
+        border-radius: 18px;
+        background: #fff4c9;
+        color: #9c7426;
+        transform: rotate(12deg);
+        box-shadow: 0 14px 25px -18px #825b29;
+      }
+      .status-scene-dot {
+        position: absolute;
+        left: 35px;
+        top: 42px;
+        width: 16px;
+        height: 16px;
+        border: 4px solid var(--soft-pink, #fde2ef);
+        border-radius: 50%;
+        background: var(--velo-primary, #e574a8);
+      }
+      .status-scene[data-animate="true"] .status-scene-window {
+        animation: status-float 5s ease-in-out infinite;
+      }
+      .status-scene[data-animate="true"] .status-scene-token {
+        animation: status-token 6s ease-in-out infinite;
+      }
+      .status-scene[data-status="maintenance"][data-animate="true"] .status-scene-symbol svg {
+        animation: status-rotate 16s linear infinite;
+      }
+      @keyframes status-float {
+        50% {
+          transform: translateY(-9px) rotate(-3deg) rotateY(8deg);
+        }
+      }
+      @keyframes status-token {
+        50% {
+          transform: translateY(9px) rotate(0);
+        }
+      }
+      @keyframes status-rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      html:not([data-ui-motion="full"]) .status-scene * {
+        animation: none !important;
+      }
+      @media (max-width: 430px) {
+        header {
+          padding: 20px 18px;
+        }
+        .card {
+          border-radius: 20px;
+        }
+        .status-scene {
+          height: 210px;
+        }
+        .status-scene-window {
+          inset: 16px 45px 22px;
+        }
+        .status-scene-token {
+          right: 5px;
+        }
+        .actions > * {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="brand">VELORI<b>.</b></span
+      ><label
+        >Motion<select id="motion" aria-label="Motion preference">
+          <option value="auto">Device</option>
+          <option value="full">Full</option>
+          <option value="gentle">Gentle</option>
+          <option value="off">Off</option>
+        </select></label
+      >
+    </header>
+    <main>
+      <section class="card" aria-labelledby="title">
+        <div class="eyebrow">LET’S FIND OUR CONNECTION</div>
+        <div class="status-scene" data-animate="true" aria-hidden="true">
+          <div class="status-scene-orbit"></div>
+          <div class="status-scene-orbit status-scene-orbit-inner"></div>
+          <div class="status-scene-shadow"></div>
+          <div class="status-scene-window">
+            <div class="status-window-chrome"><i></i><i></i><i></i><span>velori</span></div>
+            <div class="status-scene-symbol">
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              >
+                <path
+                  d="M8 26a12 12 0 0 1 10-16m8-1a12 12 0 0 1 10 13 7 7 0 0 1-1 14M9 35h19M5 5l38 38"
+                />
+              </svg>
+            </div>
+            <div class="status-window-lines"><i></i><i></i></div>
+          </div>
+          <span class="status-scene-token">✦</span><span class="status-scene-dot"></span>
+        </div>
+        <div class="status-scope" id="connection">Connection interrupted</div>
+        <h1 id="title">A little out of reach.</h1>
+        <p id="message">
+          We couldn’t reach VELORI. Check your connection, then try again. If you were posting or
+          messaging, check whether it saved before resending.
+        </p>
+        <div class="actions">
+          <button type="button" id="retry">↻ Try connecting again</button
+          ><a href="/home">Go to home</a>
+        </div>
+        <p id="feedback" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+    <footer>Your corner of the internet. We’ll meet you back here.</footer>
+    <script>
+      (function () {
+        const preferenceKey = "velori-interface-motion-v2",
+          select = document.getElementById("motion"),
+          retry = document.getElementById("retry"),
+          feedback = document.getElementById("feedback"),
+          media = matchMedia("(prefers-reduced-motion: reduce)");
+        try {
+          select.value = localStorage.getItem(preferenceKey) || "auto";
+        } catch {}
+        if (!select.value) select.value = "auto";
+        function motion() {
+          document.documentElement.dataset.uiMotionPreference = select.value;
+          document.documentElement.dataset.uiMotion =
+            select.value === "auto" ? (media.matches ? "gentle" : "full") : select.value;
+        }
+        motion();
+        select.addEventListener("change", () => {
+          motion();
+          try {
+            localStorage.setItem(preferenceKey, select.value);
+          } catch {}
+        });
+        media.addEventListener("change", motion);
+        function connection() {
+          const offline = navigator.onLine === false;
+          document.getElementById("title").textContent = offline
+            ? "A little offline. Still connected at heart."
+            : "A little out of reach.";
+          document.getElementById("connection").textContent = offline
+            ? "Your device is offline"
+            : "VELORI could not be reached";
+        }
+        connection();
+        async function check() {
+          if (retry.disabled) return;
+          connection();
+          if (navigator.onLine === false) {
+            feedback.textContent =
+              "Your device is offline. Reconnect to Wi-Fi or mobile data, then retry.";
+            return;
+          }
+          retry.disabled = true;
+          retry.textContent = "Checking connection…";
+          feedback.textContent = "Checking whether VELORI is available.";
+          const controller = new AbortController(),
+            timer = setTimeout(() => controller.abort(), 8000);
+          try {
+            const target = new URL(location.href);
+            target.hash = "";
+            target.searchParams.set("velori_connection_check", Date.now());
+            const response = await fetch(target, {
+              cache: "no-store",
+              credentials: "same-origin",
+              signal: controller.signal,
+            });
+            if (response.status >= 500 || response.status === 429 || response.status === 408)
+              throw Error("unavailable");
+            feedback.textContent = "Connection restored. Opening your page…";
+            location.reload();
+          } catch {
+            feedback.textContent =
+              navigator.onLine === false
+                ? "You’re offline. Please reconnect and try again."
+                : "VELORI is still unavailable. Please try again shortly.";
+          } finally {
+            clearTimeout(timer);
+            retry.disabled = false;
+            retry.textContent = "↻ Try connecting again";
+          }
+        }
+        retry.addEventListener("click", check);
+        addEventListener("online", () => {
+          connection();
+          check();
+        });
+        addEventListener("offline", connection);
+        document.addEventListener("visibilitychange", () => {
+          document.querySelector(".status-scene").dataset.animate = String(!document.hidden);
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Child Mode guide · VELORI</title><style>:root{font-family:system-ui,sans-serif;color:#29212c;background:#fff8fc}body{max-width:760px;padding:30px 22px 70px;margin:auto}a{color:#b04378}h1{font-size:38px;letter-spacing:-.05em}h2{font-size:20px;margin-top:35px}p{font-size:14px;line-height:1.8;color:#65566b}</style></head><body><a href="/messages">← Back to VELORI messages</a><h1>VELORI Child Mode</h1>
+
+<p>Child Mode is an optional text-language filter for a conversation, with a personal preference that synchronizes to your account. It encourages kinder language; it is not a parental-control system or a guarantee that a conversation is safe.</p>
+
+<h2>Enable or disable</h2>
+
+<p>Open Messages, select a conversation, tap the name at the top, then Settings. The highlighted Child Mode switch applies immediately. A blocked-language notice also links directly to settings and provides a clearly labeled Turn off Child Mode action. Only the user’s own local preference changes; the message draft remains editable.</p>
+
+<h2>What it does</h2>
+
+<p>• Checks typed and pasted text before a message is sent or edited. A matching message stays in the composer and is not submitted by this VELORI client.</p>
+<p>• Hides matching received message text and inbox previews on this browser while enabled. Matching search results and shared-content text are also limited.</p>
+<p>• Includes the requested Hindi/Hinglish terms, common variants and a small English profanity list. Handles case, full-width characters, zero-width characters, common leetspeak and some punctuation/space-separated variants. Whole-word matching avoids innocent substrings such as London and chutney.</p>
+<p>• Nicknames saved while the mode is on are checked too.</p>
+
+<h2>Important limits</h2>
+
+<p>• The preference belongs to the signed-in account and conversation on this browser. It does not sync to other browsers or devices. Anyone who can use this account/browser can disable it. There is no parent PIN, guardian verification or age verification.</p>
+<p>• This version filters the current client. A different client or API can bypass it. It cannot stop another participant from sending a message from their device; their matching text is hidden here after receipt.</p>
+<p>• It does not inspect images, videos, voice notes, text inside media, documents or linked pages. Media links can still contain unsuitable material. Never describe it as making media safe.</p>
+<p>• A word list cannot detect all bullying, grooming, threats, sexual content, disguised language or context, and may sometimes flag legitimate language. Human judgment and reporting are still necessary.</p>
+<p>• It does not automatically report people, notify guardians or change account privacy. Use Block and Privacy settings for separate controls. Chat message reporting needs the pending server function; failed requests do not claim a report was submitted.</p>
+<p>• Data saved on a shared browser can be accessible to other people using that account/device. Clear account access when sharing devices.</p>
+
+<h2>Other personal chat controls</h2>
+
+<p>Themes, nicknames and Delete for me are also local to this account/browser. Delete for everyone uses the existing server-authorized soft-delete path for the sender’s own messages and only animates success after acknowledgement. Others may already have seen, downloaded or captured a message.</p>
+
+<h2>Server extension</h2>
+
+<p>The proposed database extension is kept in docs/proposals/chat-account-sync.sql for review, outside automatic migrations. It requires explicit approval under AGENTS.md before applying. Account-wide synchronization and server-side protections need separate deployment and authorization/privacy testing; they are not implied by this client feature.</p>
+<h2>Account synchronization</h2><p>The client now supports syncing personal chat preferences and hidden-message references to your account. Settings show the actual sync status and a Retry sync button. Cached settings work offline. Account synchronization and private reporting are enabled on the hosted VELORI database. Pending settings retry when connected; devices refresh settings when opening a conversation or returning to the window. This is still an optional client text filter, not server-enforced parental control.</p></body></html>

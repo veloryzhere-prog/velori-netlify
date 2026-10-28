@@ -1,0 +1,1 @@
+var e=`/assets/velori-official-DYY746bi.svg`;export{e as t};

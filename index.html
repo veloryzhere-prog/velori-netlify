@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="<!-- figma:lang -->">
+  <head>
+    <!-- figma:head-start -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#100914" />
+    <meta
+      name="description"
+      content="VELORI is a more human place to share thoughts and find your people. A VELORYZ Studios product."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="VELORI" />
+    <title>VELORI — Find your people. Feel at home.</title>
+    <!-- figma:head-end -->
+    <script type="module" crossorigin src="/assets/index-BWsjd4mb.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/jsx-runtime-DwuOsvnn.js">
+    <link rel="modulepreload" crossorigin href="/assets/createLucideIcon-kd4pmwM7.js">
+    <link rel="modulepreload" crossorigin href="/assets/info-DQr3suQG.js">
+    <link rel="modulepreload" crossorigin href="/assets/supabase-Bjw8OD4P.js">
+    <link rel="modulepreload" crossorigin href="/assets/users-BtLATmKd.js">
+    <link rel="modulepreload" crossorigin href="/assets/velori-official-IcwfAyIM.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-B-jHBGgV.css">
+  </head>
+  <body>
+    <!-- figma:body-start -->
+    <div id="root"></div>
+    <script>
+      try {
+        const theme = localStorage.getItem("velori-theme") || "system";
+        document.documentElement.dataset.theme =
+          theme === "system"
+            ? matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light"
+            : theme === "dark"
+              ? "dark"
+              : "light";
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+    <!-- figma:body-end -->
+  </body>
+</html>

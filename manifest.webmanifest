@@ -1,0 +1,23 @@
+{
+  "id": "./",
+  "name": "VELORI",
+  "short_name": "VELORI",
+  "description": "A more human place to share thoughts, find your people, and feel at home.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "theme_color": "#fbfafb",
+  "background_color": "#fbfafb",
+  "icons": [
+    { "src": "./pwa-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./pwa-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./pwa-maskable-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Home", "url": "./home", "icons": [{ "src": "./pwa-192x192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Explore", "url": "./explore", "icons": [{ "src": "./pwa-192x192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Messages", "url": "./messages", "icons": [{ "src": "./pwa-192x192.png", "sizes": "192x192", "type": "image/png" }] }
+  ]
+}
